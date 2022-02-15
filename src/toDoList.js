@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from "react";
 
+import axios from "axios";
+
 import './toDoList.css'
 
 import ToDoItem from './toDoItem'
@@ -29,6 +31,7 @@ class toDoList extends Component {
     //组件被挂载到页面自动执行
     componentDidMount() {
         console.log('componentDidMount')
+        this.getData()
     }
 
     //组件被更新之前，他会自动执行
@@ -83,6 +86,14 @@ class toDoList extends Component {
                 <Text content={this.state.inputVal}/>
             </Fragment>
         )
+    }
+
+    async getData() {
+        try {
+            await axios.get('/list')
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     handleChange(e) {

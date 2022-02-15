@@ -11,6 +11,7 @@ class toDoItem extends Component {
     }
 
     render() {
+        console.log('children render');
         const {item, text} = this.props;
         return (
             // <li key={this.props.key}>{this.props.item}</li>
@@ -30,6 +31,12 @@ class toDoItem extends Component {
     //如果这个组件之前已经存在于父组件中，才会执行
     UNSAFE_componentWillReceiveProps() {
         console.log('children componentWillReceiveProps')
+    }
+
+    //  性能优化 因为父组件render函数执行 子组件的render函数也会重新执行
+    //  setState是异步函数多次操作改为一次
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.item !== this.props.item;
     }
 
     //  当这个组件即将被从页面剔除会自动执行
